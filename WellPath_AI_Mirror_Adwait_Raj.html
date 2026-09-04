@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>WellPath AI Mirror Pro</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0f172a,#134e4a);color:white}
+.container{max-width:900px;margin:auto;padding:20px}
+.card{background:rgba(255,255,255,.12);padding:20px;border-radius:18px;margin:15px 0}
+input,select,button{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none}
+button{background:#22c55e;color:white;font-size:16px}
+.meter{height:18px;background:#ffffff33;border-radius:20px;overflow:hidden}
+.fill{height:100%}
+.creator{text-align:center;opacity:.9}
+</style></head>
+<body>
+<div class='container'>
+<h1>🪞 WellPath AI Mirror</h1>
+<p style='text-align:center'>AI Mood Tracker & Wellness Assistant</p>
+<p class='creator'><b>Created by: Adwait Raj</b></p>
+
+<div class='card'>
+<h3>Daily Check-In</h3>
+<input id='sleep' type='number' value='7' placeholder='Sleep Hours'>
+<input id='energy' type='number' value='7' placeholder='Energy'>
+<input id='stress' type='number' value='4' placeholder='Stress'>
+<select id='mood'><option>😊 Happy</option><option>😐 Neutral</option><option>😟 Stressed</option></select>
+<button onclick='analyze()'>Analyze Wellbeing</button>
+</div>
+
+<div class='card'>
+<h3>Stress Risk</h3><div class='meter'><div id='s' class='fill'></div></div>
+<h3>Focus Level</h3><div class='meter'><div id='f' class='fill'></div></div>
+<h3>Burnout Risk</h3><div class='meter'><div id='b' class='fill'></div></div>
+<h2 id='score'></h2>
+<p id='rec'></p>
+</div>
+
+<script>
+function analyze(){
+let sleep=+document.getElementById('sleep').value;
+let energy=+document.getElementById('energy').value;
+let stress=+document.getElementById('stress').value;
+let score=Math.max(0,Math.min(100,Math.round((sleep*8)+(energy*4)-(stress*3)+40)));
+document.getElementById('score').innerText='Wellness Score: '+score+'/100';
+document.getElementById('s').style.width=(stress*10)+'%'; document.getElementById('s').style.background='orange';
+document.getElementById('f').style.width=((sleep<6||energy<4)?40:85)+'%'; document.getElementById('f').style.background='limegreen';
+document.getElementById('b').style.width=((stress>7&&sleep<6)?60:25)+'%'; document.getElementById('b').style.background='tomato';
+document.getElementById('rec').innerText=stress>7?'Recommendation: Take a break and reduce stress.':'Recommendation: Keep up your healthy habits.';
+}
+</script>
+</body></html>
